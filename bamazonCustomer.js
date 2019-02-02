@@ -96,6 +96,9 @@ function placeOrder() {
                         }
                     )
                 }
-            });
+            })
+            .catch(function(err) {
+                console.log(err);
+            })
     });
 }
