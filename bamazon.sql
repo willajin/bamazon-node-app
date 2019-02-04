@@ -3,17 +3,14 @@ CREATE DATABASE bamazon_db;
 USE bamazon_db;
 
 CREATE TABLE products (
-	item_id INTEGER AUTO_INCREMENT NOT NULL,
+	item_id INT AUTO_INCREMENT NOT NULL,
     PRIMARY KEY (item_id),
     product_name VARCHAR(100),
     department_name VARCHAR(100),
     price INT default 0,
-    stock_quantity INT default 0
+    stock_quantity INT default 0,
+    product_sales INT default 0
 );
-
-SELECT * FROM products;
-describe products;
-show tables;
 
 INSERT into products (product_name, department_name, price, stock_quantity)
 VALUES ("Bamazon Echo Dot (1st generation)", "Electronics", 50, 25);
@@ -47,3 +44,32 @@ VALUES ("Sack of Potatoes", "Food", 4.99, 23);
 
 INSERT into products (product_name, department_name, price, stock_quantity)
 VALUES ("Ultra-Soft Toilet Paper", "Home", 16.50, 582);
+
+SELECT * FROM products;
+describe products;
+show tables;
+
+CREATE TABLE departments (
+	department_id INT AUTO_INCREMENT NOT NULL,
+    PRIMARY KEY (department_id),
+    department_name VARCHAR(100),
+    over_head_costs INT default 0
+);
+
+INSERT into departments (department_name, over_head_costs)
+VALUES ("Electronics", 50);
+
+INSERT into departments (department_name, over_head_costs)
+VALUES ("Pet Supplies", 20);
+
+INSERT into departments (department_name, over_head_costs)
+VALUES ("Home", 15);
+
+INSERT into departments (department_name, over_head_costs)
+VALUES ("Food", 10);
+
+INSERT into departments (department_name, over_head_costs)
+VALUES ("Clothing", 10);
+
+SELECT * FROM departments; 
+describe departments;

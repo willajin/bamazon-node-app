@@ -75,23 +75,20 @@ function placeOrder() {
                 else {
                     // calculate remaining quantity
                     var remainQty = prodInput.stock_quantity - answer.units;
+
+                    // calculate total cost of purchase
+                    var totalCost = answer.units * prodInput.price;
+
+                    // calculate total product sales
+                    var totalSales = prodInput.product_sales + totalCost;
+                    //console.log(totalSales);
+
                     //update SQL database if available
-                    connection.query("UPDATE products SET ? WHERE ?",
-                        [
-                            {
-                                stock_quantity: remainQty
-                            },
-                            {
-                                item_id: prodInput.item_id
-                            }
-                        ],
+                    connection.query("UPDATE products SET stock_quantity = ?, product_sales = ? WHERE item_id = ?", [remainQty, totalSales, prodInput.item_id],
                         function (err) {
                             if (err) throw err;
                             console.log("Item purchased! Your order of " + "[" + answer.units + "] " + answer.choice + " is on its way.");
-                            // calculate total cost of purchase
-                            var totalCost = answer.units * prodInput.price;
                             console.log("The total cost of your purchase is $" + totalCost);
-                            //console.log("Qty remainining: " + remainQty);
                             connection.end();
                         }
                     )
